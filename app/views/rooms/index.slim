@@ -4,7 +4,10 @@ h1 Rooms
   ul
     - @rooms.each do |room|
       li
-        = room.name
+        - if current_user.has_session?(room.id)
+          = link_to room.name, edit_session_user_path(current_user.session(room.id))
+        - else
+          = link_to room.name, new_room_session_user_path(room)
         | (
         = link_to "edit", edit_room_path(room)
         | )

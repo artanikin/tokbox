@@ -1,0 +1,15 @@
+h1
+  | Entrance to the room:
+  = @room.name
+
+= render "shared/errors", obj: @session_user
+
+= form_for @session_user do |f|
+  div
+    = f.label :role, "Role"
+    = f.select :role, ["subscriber", "publisher", "moderator"]
+  div
+    = f.label :nikname, "Nikname"
+    = f.text_field :nikname
+  div= f.submit "Open room"
+
