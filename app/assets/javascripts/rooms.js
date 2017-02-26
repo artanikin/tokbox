@@ -1,0 +1,80 @@
+var apiKey    = gon.api_key;
+var sessionId = gon.session_id;
+var token     = gon.token;
+var nikname   = gon.nikname;
+var session;
+
+$(document).ready(function(){
+  var chatForm = $("#chat_form");
+  var chat = $("#chat");
+
+  initializeSession();
+  scrollDown(chat[0]);
+
+  // Chat
+  chatForm.on("ajax:success", function(e, data, status, xhr) {
+    var message;
+    var responseData;
+
+    responseData = $.parseJSON(xhr.responseText);
+    $(this).find("input[type=text]").val('');
+
+    message = "<span>" + responseData.nikname + ": </span>" + responseData.message.text;
+    session.signal({ type: "chat", data: message });
+  });
+
+}); // end document ready
+
+function initializeSession() {
+  session = OT.initSession(apiKey, sessionId);
+  session.connect(token);
+
+  session.on({
+    // "sessionConnected":    sessionConnectedHandler,
+    // "sessionDisconnected": sessionDisconnectedHandler,
+    // "streamCreated":       streamCreatedHandler,
+    // "connectionCreated":   connectionCreatedHandler,
+    // "connectionDestroyed": connectionDestroyedHandler,
+    "signal": signalHandler
+  });
+} // end initliazeSession()
+
+function publishStream() {
+  if (session.capabilities.publish == 1) {
+    var videoId = "video_" + streamIndex;
+    var propertiesPub = { name: nikname, insertMode: "append", width: "300px", height: "300px" }
+
+    // create video container
+    var video_container = $("#publisher").append($("<div id='" + videoId + "'></div>"));
+
+    var myPublisher = session.publish(videoId, propertiesPub);
+    publishers[myPublisher.id] = myPublisher;
+
+    var toolbox = JST["templates/toolbox"]({
+      publisher_id: myPublisher.id,
+      can_unpublish: (session.capabilities.forceUnpublish == 1)
+    })
+    video_container.after(toolbox);
+
+    streamIndex++;
+  }
+}
+
+function sessionConnectedHandler(event) {
+  publishers = {};
+}
+
+function signalHandler(event){
+  var chat = $("#chat");
+  var msg = document.createElement('p');
+
+  msg.innerHTML = event.data;
+  msg.className = event.from.connectionId === session.connection.connectionId ? 'mine' : 'theirs';
+
+  chat.append(msg);
+  scrollDown(chat[0]);
+}
+
+function scrollDown(elem) {
+  elem.scrollTop = elem.scrollHeight;
+}

@@ -17,6 +17,7 @@ gem 'pg', '~> 0.18'
 gem "opentok"
 gem "slim"
 gem "devise"
+gem "gon"
 
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'

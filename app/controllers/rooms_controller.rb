@@ -7,6 +7,15 @@ class RoomsController < ApplicationController
   end
 
   def show
+    @session_user = current_user.session(@room.id)
+    @message = @session_user.messages.build
+
+    gon.push({
+      api_key:    @opentok.api_key,
+      session_id: @room.session_id,
+      token:      @session_user.token,
+      nikname:    @session_user.nikname
+    })
   end
 
   def new

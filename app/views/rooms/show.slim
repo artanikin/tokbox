@@ -1,0 +1,15 @@
+- content_for :javascripts do
+  = javascript_include_tag "rooms"
+
+h1= "Room: #{@room.name}"
+
+#chat-wrapper
+  #chat
+    - @room.messages.each do |message|
+      p class="#{message.session_user == @session_user ? 'mine' : 'theirs'}"
+        span= "#{message.session_user.nikname}: "
+        = message.text
+
+  = form_for [@session_user, @message], remote: true, data: { type: :json }, html: { id: "chat_form" } do |f|
+    = f.text_field :text, size: 39, placeholder: "your message"
+    = f.submit "Send"
