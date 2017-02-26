@@ -17,6 +17,7 @@ gem 'pg', '~> 0.18'
 gem "opentok"
 gem "slim"
 gem "devise"
+gem "skim"
 gem "gon"
 
 gem 'jquery-rails'

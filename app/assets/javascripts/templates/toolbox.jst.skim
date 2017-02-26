@@ -1,0 +1,12 @@
+ul id="toolbox_#{@publisher_id}"
+  li
+    a href="#" class="unpublish_audio" data-publisher="#{@publisher_id}" Unpublish Audio
+    |  | 
+    a href="#" class="publish_audio" data-publisher="#{@publisher_id}" Publish Audio
+  li
+    a href="#" class="unpublish_video" data-publisher="#{@publisher_id}" Unpublish Video
+    |  | 
+    a href="#" class="publish_video" data-publisher="#{@publisher_id}" Publish Video
+  - if @can_unpublish
+    li
+      a href="#" class="unpublish" data-publisher="#{@publisher_id}" Unpublish

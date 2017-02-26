@@ -1,7 +1,11 @@
 - content_for :javascripts do
   = javascript_include_tag "rooms"
+  = javascript_include_tag "templates/toolbox"
 
 h1= "Room: #{@room.name}"
+
+- if %w(publisher moderator).include? @session_user.role
+  = link_to "Publish Stream", "#", id: "publish_stream"
 
 #chat-wrapper
   #chat
@@ -13,3 +17,7 @@ h1= "Room: #{@room.name}"
   = form_for [@session_user, @message], remote: true, data: { type: :json }, html: { id: "chat_form" } do |f|
     = f.text_field :text, size: 39, placeholder: "your message"
     = f.submit "Send"
+
+#videos
+  #subscriber
+  #publisher
