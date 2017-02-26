@@ -1,0 +1,17 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
+  database: tokbox_dev
+
+test:
+  <<: *default
+  database: tokbox_test
+
+production:
+  <<: *default
+  database: tokbox_prod
