@@ -1,0 +1,10 @@
+= form_for @room do |f|
+  div
+    = f.label :name, "Room"
+    = f.text_field :name
+  div
+    = f.label :public, "Public"
+    = f.check_box :public
+  div
+    = f.submit
+    = link_to "Back", root_path

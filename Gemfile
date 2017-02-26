@@ -14,6 +14,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 # gem 'therubyracer', platforms: :ruby
 gem 'pg', '~> 0.18'
+gem "opentok"
+gem "slim"
 
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
