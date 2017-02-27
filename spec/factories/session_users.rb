@@ -1,9 +1,13 @@
 FactoryGirl.define do
+  sequence :nikname do |n|
+    "User#{n}"
+  end
+
   factory :session_user do
-    room_id 1
-    user_id 1
+    room
+    user
     token "MyString"
-    nikname "MyString"
-    role "MyString"
+    nikname
+    role "subscriber"
   end
 end

@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :message do
-    session_user_id 1
-    room_id 1
-    text "MyString"
+    session_user
+    room
+    text "test chat message"
   end
 end
