@@ -1,0 +1,4 @@
+test:
+  adapter: postgresql
+  database: tokbox_test
+  username: postgres
